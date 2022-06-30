@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const authRoutes = require('./routes/auth');
+
 mongoose.connect('mongodb+srv://UserOfOC:Azerty01.@clusteroc.ndiye.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true, // don't find why this is needed
     useUnifiedTopology: true })
@@ -19,9 +21,10 @@ app.use((req, res, next) => {
   next();
 })
 
+
+app.use('/api/auth', authRoutes);
 app.use((req, res,next)=> {
-    console.log(req.body);
     res.status(200).json({message : "working"})
-})
+});
 
 module.exports = app;

@@ -9,8 +9,19 @@ mongoose.connect('mongodb+srv://UserOfOC:Azerty01.@clusteroc.ndiye.mongodb.net/?
 
 const app = express();
 
+app.use(express.json()); // add body to request if Content-Type : application/json
+
+// add these header to all the request 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+})
+
 app.use((req, res,next)=> {
-    res.status(200).end("other test");
+    console.log(req.body);
+    res.status(200).json({message : "working"})
 })
 
 module.exports = app;

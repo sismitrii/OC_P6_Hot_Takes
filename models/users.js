@@ -3,8 +3,8 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 const userSchema = mongoose.Schema({ // By default, Mongoose adds an _id property to your schemas.
-    email : {type : string, required : true, unique: true},
-    password : {type : string, required : true}
+    email : {type : String, required : true, unique: true},
+    password : {type : String, required : true}
 })
 
 userSchema.plugin(uniqueValidator); // Allowed to have a understandable error better than E11000

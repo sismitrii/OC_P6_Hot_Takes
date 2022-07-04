@@ -10,7 +10,6 @@ exports.create = (req, res, next) => {
         userId : req.auth.userId
         
     });
-    console.log(sauce);
     sauce.save()
         .then(() => res.status(201).json({message : "Nouvelle sauce crée !"}))
         .catch(error => res.status(401));

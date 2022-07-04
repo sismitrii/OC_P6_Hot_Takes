@@ -5,6 +5,7 @@ const { dirname } = require('path');
 const path = require('path');
 
 const authRoutes = require('./routes/auth');
+const sauceRoutes = require('./routes/sauce');
 
 mongoose.connect('mongodb+srv://UserOfOC:Azerty01.@clusteroc.ndiye.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true, // don't find why this is needed
@@ -26,11 +27,10 @@ app.use((req, res, next) => {
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/sauces', sauceRoutes);
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); // A REVOIR !!!
 
-app.use('/api/sauces', (req, res, next) => {
-  res.status(200).json({message:"working ?"})
-});
+
 
 module.exports = app;

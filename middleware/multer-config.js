@@ -8,15 +8,15 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {
-        cb(null, '/images')
+        cb(null, 'images')
     },
     filename :(req, file, cb) => {
-        const name = file.fieldname.split(' ').join('_'); //.toLowerCase();
+        const name = file.originalname.toLowerCase().split(' ').join('_').split('.')[0]; //.toLowerCase();
         const extention = MIME_TYPES[file.mimetype];  // file.mymetype.split('/')[1] possible ? error jpeg ?
         cb(null, name + Date.now() + "." + extention);
     }
 });
 
-module.exports = multer({storage}).single('image'); // is storage work replace by dest ?
+module.exports = multer({storage : storage}).single('image'); // is storage work replace by dest ?
 
 //https://expressjs.com/en/resources/middleware/multer.html

@@ -23,7 +23,7 @@ L'API fonctionne avec une base de donnée MongoDB. Un compte MongoDB est donc re
     - Choisir Shared Free
     - Vous pouvez changer le ClusterName
     - Create Cluster
-    - Définir un username et password
+    - Définir un username et password, notez le password
     - Add My current IP Address
     - Save
     - Sur l'onglet Database cliquer sur Connect > Connect your application
@@ -33,7 +33,7 @@ Dans le dossier backend vous trouverez un fichier `.env.sample``
 - Duppliquer ce fichier
 - Renommer le fichier `.env``
 - Ouvrir le fichier et remplir :
-    - MONGODB_CONNECT avec le lien copié
+    - MONGODB_CONNECT avec le lien copié en replacant <password> par le mot de passe notez precedemment.
     - JWT_PASSWORD avec le mot de passe que vous voulez
     
 - Executez :

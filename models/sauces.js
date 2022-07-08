@@ -1,5 +1,11 @@
+/*=============================================================*/
+/*------------------------ IMPORT -----------------------------*/
+/*=============================================================*/
 const mongoose = require('mongoose');
 
+/*=============================================================*/
+/*------------------------ Schema -----------------------------*/
+/*=============================================================*/
 const sauceSchema = mongoose.Schema({
     userId : {type : String, required : true},
     name : {type : String, required :true},
@@ -15,6 +21,5 @@ const sauceSchema = mongoose.Schema({
 })
 
 // is all the data really required ?
-// Good idea to set default value ?
 
 module.exports = mongoose.model('Sauce', sauceSchema);

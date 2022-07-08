@@ -1,7 +1,12 @@
+/*=============================================================*/
+/*------------------------ IMPORT -----------------------------*/
+/*=============================================================*/
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-
+/*=============================================================*/
+/*------------------------ Schema -----------------------------*/
+/*=============================================================*/
 const userSchema = mongoose.Schema({ // By default, Mongoose adds an _id property to your schemas.
     email : {type : String, required : true, unique: true},
     password : {type : String, required : true}

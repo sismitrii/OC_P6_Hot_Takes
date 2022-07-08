@@ -1,6 +1,15 @@
+/*=============================================================*/
+/*------------------------ IMPORT -----------------------------*/
+/*=============================================================*/
 const Sauce = require('../models/sauces');
 const fs = require('fs');
 
+
+/*=============================================================*/
+/*------------------------ FUNCTIONS --------------------------*/
+/*=============================================================*/
+
+/*=== Create a new sauce in DB ===*/
 exports.create = (req, res, next) => {
     const sauceObj = JSON.parse(req.body.sauce);
     delete sauceObj._id;
@@ -15,18 +24,22 @@ exports.create = (req, res, next) => {
         .catch(error => res.status(401));
 };
 
+
+/*=== Find all sauces in DB ===*/
 exports.getAll = (req, res, next) => {
     Sauce.find()
         .then(sauces => res.status(200).json(sauces))
         .catch(error => res.status(404).json(error));
 }
 
+/*=== Find one sauce with id ===*/
 exports.getOne = (req,res, next) => {
     Sauce.findOne({_id : req.params.id})
         .then(sauce => res.status(200).json(sauce))
         .catch(error => res.status(404).json({error}))
 }
 
+/*=== Modify a sauce with or without picture added ===*/
 exports.modify = (req, res, next) => {
     const newSauceValue = req.file ? // if req.file
     {...JSON.parse(req.body.sauce),       //true
@@ -44,6 +57,7 @@ exports.modify = (req, res, next) => {
     }
 }
 
+/*=== Delete a Sauce from DB ===*/
 exports.delete = (req, res, next) => {
     Sauce.findOne({_id : req.params.id})
         .then((sauce) => {
@@ -66,6 +80,7 @@ exports.delete = (req, res, next) => {
         .catch(error => res.status(404).json({message : "Sauce non présente in DataBase", error : error}))
 }
 
+/*=== Add or remove a Like or Dislike ===*/
 exports.likeOrDislike = (req, res, next) => {
     Sauce.findOne({_id : req.params.id})
         .then((sauce) =>{
@@ -96,7 +111,6 @@ exports.likeOrDislike = (req, res, next) => {
                     sauce.usersDisliked.push(req.body.userId);
                 }
             }
-            console.log(sauce);
             Sauce.updateOne({_id : req.params.id}, sauce)
                 .then(()=> res.status(201).json({message : "Modification des likes ou dislikes"}))
                 .catch(error => res.status(400).json({error}))

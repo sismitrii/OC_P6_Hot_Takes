@@ -1,7 +1,15 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+/*=============================================================*/
+/*------------------------ IMPORT -----------------------------*/
+/*=============================================================*/
+const bcrypt = require('bcrypt');  // Bcrypt doc : https://openbase.com/js/bcrypt/documentation
+const jwt = require('jsonwebtoken'); // Jwt : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/json-web-token-jwt/
 
 const User = require('../models/users');
+
+
+/*=============================================================*/
+/*------------------------ FUNCTIONS --------------------------*/
+/*=============================================================*/
 
 /*=== Crypt the password from the request, create a user and save the users in the DB ===*/
 exports.signUp = (req, res, next) => {
@@ -19,6 +27,7 @@ exports.signUp = (req, res, next) => {
         .catch( error => res.status(500).json({message : "hash not working", error : error}));
 };
 
+/*=== Find user in DB with the same email and check if the password is the same ===*/
 exports.login = (req, res, next) => {
     User.findOne({email : req.body.email})
         .then((user) => {
@@ -30,7 +39,6 @@ exports.login = (req, res, next) => {
                     if (valid === false){
                         return res.status(401).json({message : "Mot de passe incorrect"});
                     }
-                    // il faut return l'userId et un token
                     res.status(200).json({
                         userId : user._id,
                         token : jwt.sign(
@@ -48,5 +56,4 @@ exports.login = (req, res, next) => {
 };
 
 
-// Bcrypt doc : https://openbase.com/js/bcrypt/documentation
-// Jwt : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/json-web-token-jwt/
+

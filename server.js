@@ -13,9 +13,10 @@ const app = require('./app');
 function normalizePort(port){
     const numberPort = parseInt(port, 10);
 
-    /*if (isNaN(port)) {
-      return val;
-    }*/
+    if (isNaN(numberPort)) {
+      return port;
+    }
+
     if (numberPort >= 0) { //if a negative port is possible 
       return numberPort;
     }
@@ -30,11 +31,11 @@ function errorHandler(error){
     }
 
     switch (error.code) {
-        case 'EACCES':
+        case 'EACCES': // droit admin 
           console.error(bind + ' requires elevated privileges.');
           process.exit(1); // end the process which is running
           break;
-        case 'EADDRINUSE':
+        case 'EADDRINUSE': // port already
           console.error(bind + ' is already in use.');
           process.exit(1);
           break;

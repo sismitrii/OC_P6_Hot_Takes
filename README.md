@@ -1,6 +1,6 @@
 # PROJET 6 - Construisez une API sécurisée pour une application d'avis gastronomiques
 
-## Instalation 
+## Installation 
 ### Back end
 - Cloner le projet :
 
@@ -16,7 +16,7 @@ git clone https://github.com/sismitrii/OC_P6_Hot_Takes.git backend
 
 #### Connection à la base de donnée
 
-L'API fonctionne avec une base de donnée MongoDB. Un compte MongoDB est donc requis. Si vous ne disposez pas de compte vous pouvez vous inscrire gratuitement à cette [https://www.mongodb.com/atlas/database](adresse).
+L'API fonctionne avec une base de donnée MongoDB. Un compte MongoDB est donc requis. Si vous ne disposez pas de compte vous pouvez vous inscrire gratuitement à cette [adresse](https://www.mongodb.com/atlas/database).
 
 - Créer un nouveau projet
 - Built a database 
@@ -27,9 +27,9 @@ L'API fonctionne avec une base de donnée MongoDB. Un compte MongoDB est donc re
     - Add My current IP Address
     - Save
     - Sur l'onglet Database cliquer sur Connect > Connect your application
-    - copier le lien commençant par "mongodb+srv://..."
+    - Copier le lien commençant par "mongodb+srv://..."
 
-Dans le dossier backend vous trouver un fichier `.env.sample``
+Dans le dossier backend vous trouverez un fichier `.env.sample``
 - Duppliquer ce fichier
 - Renommer le fichier `.env``
 - Ouvrir le fichier et remplir :
@@ -59,6 +59,6 @@ npm install
 - Executez : 
 
 ```text
-ng serve
+npm start
 ```
 

@@ -19,6 +19,3 @@ module.exports = (req, res, next) => {
         res.status(401).json({message : "Erreur d'authentification", error : error});
     }
 }
-
-// il faut à la création d'objet préciser dans celui-ci le UserId ??
-// et a la modification ou suppression check si le UserId est le bon et si il ne l'est pas renvoyer une erreur

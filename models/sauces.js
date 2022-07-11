@@ -20,6 +20,4 @@ const sauceSchema = mongoose.Schema({
     usersDisliked : {type : Array, default : []}
 })
 
-// is all the data really required ?
-
 module.exports = mongoose.model('Sauce', sauceSchema);

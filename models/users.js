@@ -20,5 +20,3 @@ module.exports = mongoose.model('User', userSchema);
 //https://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType
 // https://www.npmjs.com/package/mongoose-unique-validator
 
-/*Mongoose will refuse to save a document that doesn't have
-an _id, so you're responsible for setting _id if you define your own _id path.*/

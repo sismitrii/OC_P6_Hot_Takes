@@ -43,8 +43,8 @@ exports.login = (req, res, next) => {
                         userId : user._id,
                         token : jwt.sign(
                             {userId : user._id},
-                            process.env.JWT_PASSWORD, // MOT DE PASSE A trouver comment obtenir qch de secure !!!!!!!!!!!!
-                            {expiresIn : '8h'} // Quel durée mettre ?
+                            process.env.JWT_PASSWORD,
+                            {expiresIn : '8h'} 
                         )
                         });
                 })

@@ -41,20 +41,33 @@ exports.getOne = (req,res, next) => {
 
 /*=== Modify a sauce with or without picture added ===*/
 exports.modify = (req, res, next) => {
-    const newSauceValue = req.file ? // if req.file
-    {...JSON.parse(req.body.sauce),       //true
+    const newSauceValue = req.file ? 
+    {...JSON.parse(req.body.sauce),       
     imageUrl :`${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     _id : req.params.id} 
     :
-    {...req.body,     //false 
+    {...req.body,    
         _id : req.params.id} 
-    if (newSauceValue.userId === req.auth.userId){      
-        Sauce.updateOne({_id : req.params.id}, newSauceValue)
-            .then(() => res.status(201).json({message : "Sauce modifié"}))
-            .catch(error => res.status(400).json({error}))
-    } else {
-        res.status(401).json({message : "Unauthorized"});
-    }
+    
+        Sauce.findOne({_id : req.params.id})
+            .then((sauce) => {
+                if (sauce.userId === req.auth.userId){
+                    if (req.file){
+                        const filename = sauce.imageUrl.split('/images/')[1];
+                        fs.unlink(`images/${filename}`, (err) =>{
+                            if (err){
+                                console.error("error deleting image");
+                            }
+                        })
+                    }
+                    Sauce.updateOne({_id : req.params.id}, newSauceValue)
+                    .then(() => res.status(201).json({message : "Sauce modifié"}))
+                    .catch(error => res.status(400).json({error}))
+                } else {
+                res.status(401).json({message : "Unauthorized"});
+                }
+                
+            })     
 }
 
 /*=== Delete a Sauce from DB ===*/
@@ -84,8 +97,6 @@ exports.delete = (req, res, next) => {
 exports.likeOrDislike = (req, res, next) => {
     Sauce.findOne({_id : req.params.id})
         .then((sauce) =>{
-            // est ce que lors d'un like le dislike est appelé ?
-            // est ce que un utilisateur peut like et dislike ? 
 
             if (req.body.like === 1){
                 if (!(sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId))){
@@ -94,7 +105,6 @@ exports.likeOrDislike = (req, res, next) => {
                 }
             }
             if (req.body.like === 0){
-                // check si l'utilisateur a déjà like (ou dislike)
                 if (sauce.usersLiked.includes(req.body.userId)){
                     sauce.likes = sauce.likes - 1;
                     sauce.usersLiked.splice(sauce.usersLiked.indexOf(req.body.userId), 1);
@@ -102,8 +112,6 @@ exports.likeOrDislike = (req, res, next) => {
                     sauce.dislikes = sauce.dislikes - 1;
                     sauce.usersDisliked.splice(sauce.usersDisliked.indexOf(req.body.userId), 1);
                 }  
-                // si c'est like supprimé le like et du tableau
-                // si c'est dislike supprimé le dislike et du tableau
             } 
             if (req.body.like === -1){
                 if (!(sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId))){
@@ -116,7 +124,6 @@ exports.likeOrDislike = (req, res, next) => {
                 .catch(error => res.status(400).json({error}))
         })
         .catch(error => res.status(404).json({message : "Sauce non présente in DataBase", error : error}))
-// pensez a mettre une sécurité si un utilisateur qui a liké veut mettre aussi un dislike
 }
 
 

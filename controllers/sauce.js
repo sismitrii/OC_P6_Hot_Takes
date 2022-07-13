@@ -64,7 +64,7 @@ exports.modify = (req, res, next) => {
                     .then(() => res.status(201).json({message : "Sauce modifié"}))
                     .catch(error => res.status(400).json({error}))
                 } else {
-                res.status(401).json({message : "Unauthorized"});
+                res.status(403).json({message : "Unauthorized"});
                 }
                 
             })     
@@ -85,7 +85,7 @@ exports.delete = (req, res, next) => {
                     }
                 })
             } else {
-                res.status(401).json({message : "Unauthorized"});
+                res.status(403).json({message : "Unauthorized"});
             }
             
         }
